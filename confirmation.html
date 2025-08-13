@@ -35,37 +35,32 @@
             font-weight: 500;
         }
         main {
-            max-width: 800px;
-            margin: 50px auto;
+            max-width: 700px;
+            margin: 30px auto;
             padding: 30px;
             background: var(--white);
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            text-align: center;
         }
-        .success-icon {
-            font-size: 60px;
-            color: #28a745;
-            margin-bottom: 20px;
-        }
-        h1 { color: #28a745; margin-bottom: 20px; }
-        .info-box {
+        h1 { text-align: center; color: var(--primary); margin-bottom: 10px; }
+        .summary {
             background: #f8f9fa;
             padding: 20px;
-            border-radius: 8px;
-            margin: 30px 0;
-            text-align: left;
-            font-size: 16px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
         .btn {
             display: inline-block;
-            padding: 12px 25px;
+            padding: 14px;
             background: var(--primary);
             color: var(--white);
-            text-decoration: none;
+            border: none;
             border-radius: 6px;
-            margin: 10px 5px;
+            font-size: 16px;
             font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
         }
         .btn:hover { background: #0056b3; }
         footer {
@@ -89,42 +84,60 @@
     </header>
 
     <main>
-        <div class="success-icon">✅</div>
-        <h1>Pretenzija sėkmingai pateikta!</h1>
+        <h1>Pateikti pretenziją</h1>
 
-        <p>Dėkojame, kad pateikėte pretenziją. Jūsų užklausa priimta ir bus išnagrinėta per 24 valandas.</p>
+        <p>Patikrinkite, ar visi duomenys teisingi:</p>
 
-        <div class="info-box">
-            <strong>Pretenzijos informacija:</strong><br>
-            <span id="claim-info">ID: <span id="claim-id">Kraunama...</span></span><br>
-            <span id="claim-date">Data: <span id="claim-date-value">Kraunama...</span></span>
+        <div class="summary">
+            <p><strong>Tema:</strong> <span id="summary-topic"></span></p>
+            <p><strong>Veiklos tipas:</strong> <span id="summary-role"></span></p>
+            <p><strong>Produktas:</strong> <span id="summary-product"></span></p>
+            <p><strong>Aprašymas:</strong> <span id="summary-description"></span></p>
+            <p><strong>Reikalavimas:</strong> <span id="summary-request"></span></p>
+            <p><strong>Kontaktai:</strong> <span id="summary-contact"></span></p>
+            <p><strong>Miestas:</strong> <span id="summary-city"></span></p>
         </div>
 
-        <p><strong>Kiti žingsniai:</strong></p>
-        <ul style="text-align: left; margin: 20px 0; padding-left: 20px;">
-            <li>Per 5 minutes gausite patvirtinimo el. laišką</li>
-            <li>Išsami analizė ir atsakymas bus išsiųsti per 24 valandas</li>
-            <li>Būseną galėsite stebėti savo profilyje</li>
-        </ul>
-
-        <a href="index.html" class="btn">Grįžti į pagrindinį</a>
-        <a href="profile.html" class="btn">Atidaryti profilį</a>
+        <div class="actions">
+            <button onclick="goBack()">Atgal</button>
+            <button onclick="submitClaim()">Pateikti</button>
+        </div>
     </main>
 
     <footer>© 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt</footer>
 
     <script>
-        // Gauti pretenzijos ID iš URL
+        // Gauname pretenzijos ID iš URL
         const urlParams = new URLSearchParams(window.location.search);
         const claimId = urlParams.get('id');
+
+        // Gauname pretenzijos duomenis iš localStorage
         const claims = JSON.parse(localStorage.getItem('claims') || '[]');
         const claim = claims.find(c => c.id === claimId);
 
-        if (claim) {
-            document.getElementById('claim-id').textContent = claim.id;
-            document.getElementById('claim-date-value').textContent = new Date(claim.date).toLocaleString('lt-LT');
-        } else {
-            document.getElementById('claim-info').innerHTML = '<span style="color: red;">Pretenzija nerasta</span>';
+        if (!claim) {
+            alert('Pretenzija nerasta.');
+            location.href = 'index.html';
+            return;
+        }
+
+        // Rodyti pretenzijos duomenis
+        document.getElementById('summary-topic').textContent = claim.topic;
+        document.getElementById('summary-role').textContent = claim.role;
+        document.getElementById('summary-product').textContent = claim.product || 'Nenurodytas';
+        document.getElementById('summary-description').textContent = claim.description.substring(0, 100) + (claim.description.length > 100 ? '...' : '');
+        document.getElementById('summary-request').textContent = claim.request;
+        document.getElementById('summary-contact').textContent = `${claim.contact.name} ${claim.contact.surname}, ${claim.contact.email}`;
+        document.getElementById('summary-city').textContent = claim.contact.city || 'Nenurodytas';
+
+        function goBack() {
+            history.back();
+        }
+
+        function submitClaim() {
+            // Simuliacija: pretenzija išsaugota
+            alert(`Pretenzija sėkmingai pateikta!\n\nJūsų ID: ${claimId}\nPer 5 minutes gausite patvirtinimo laišką.\nAtsakymas bus išsiųstas per 24 valandas.`);
+            location.href = 'index.html';
         }
     </script>
 </body>
