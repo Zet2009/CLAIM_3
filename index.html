@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubineta – Pretenzijų registracija</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --primary-hover: #0056b3;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --white: #ffffff;
+            --gray: #6c757d;
+            --font: 'Arial', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--white);
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            height: 50px;
+            cursor: pointer;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 14px 30px;
+            background: var(--white);
+            color: var(--primary);
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+        }
+
+        .faq-item h3 {
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            color: var(--gray);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 14px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        /* Chat botas */
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: var(--white);
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .chatbot-header {
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-close {
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .chatbot-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            font-size: 14px;
+            color: var(--dark);
+        }
+
+        .chatbot-input {
+            display: flex;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .chatbot-input button {
+            padding: 10px 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.jpg" alt="Rubineta Logo" class="logo" onclick="location.href='index.html'">
+        <nav>
+            <a href="index.html">Pagrindinis</a>
+            <a href="duku.html">DUK</a>
+            <a href="login.html">Prisijungti</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Pagrindinis blokas -->
+        <section class="hero">
+            <h1>Pretenzijų registracija</h1>
+            <p>Pateikite pretenziją greitai ir patogiai. Gauskite atsakymą per 24 valandas.</p>
+            <a href="pretention.html" class="btn-primary">Pateikti pretenziją</a>
+        </section>
+
+        <!-- DUK sekcija -->
+        <section class="section">
+            <h2>Dažniausiai užduodami klausimai</h2>
+            <div class="faq-item">
+                <h3>Kaip pateikti pretenziją?</h3>
+                <p>Prisijunkite prie savo paskyros ir pildykite daugiapakopę formą. Reikės nurodyti produkto pavadinimą, problemos aprašymą, kontaktus ir įkelti dokumentus.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Kiek ilgai veikia garantija?</h3>
+                <p>Garantinis laikotarpis – 2 metai nuo pirkimo datos. Garantija galioja tik su pirkimo dokumentu.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Ką daryti, jei produktas sugedo?</h3>
+                <p>Pateikite pretenziją su foto, vaizdo įrašu ir pirkimo patvirtinimu. Mūsų kokybės komanda peržiūrės ir nustatys, ar problema garantinė.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Ar galima pateikti pretenziją be paskyros?</h3>
+                <p>Taip, pretenziją galima pateikti neprisijungus prie registruotos paskyros.</p>
+            </div>
+        </section>
+
+        <!-- Kitos paslaugos -->
+        <section class="section">
+            <h2>Jūsų naudai</h2>
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 10px;">✅ Greitas atsakymas – per 24 valandas</li>
+                <li style="margin-bottom: 10px;">✅ Patogus procesas – viskas internetu</li>
+                <li style="margin-bottom: 10px;">✅ Sekite būseną savo profilyje</li>
+                <li style="margin-bottom: 10px;">✅ Galimybė gauti meistrą į namus</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Chat botas -->
+    <div class="chatbot-toggle" onclick="toggleChatbot()">💬</div>
+    <div class="chatbot">
+        <div class="chatbot-header">
+            <span>Chat-botas</span>
+            <span class="chatbot-close" onclick="toggleChatbot()">✕</span>
+        </div>
+        <div class="chatbot-body">
+            <p><strong>Botas:</strong> Labas! Kaip galiu padėti?</p>
+            <p><strong>Botas:</strong> Galiu atsakyti į dažniausiai užduodamus klausimus.</p>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Rašykite čia..." id="chat-input" onkeydown="handleChatInput(event)">
+            <button onclick="sendChatMessage()">Siųsti</button>
+        </div>
+    </div>
+
+    <footer>© 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt</footer>
+
+    <script>
+        function toggleChatbot() {
+            const chatbot = document.querySelector('.chatbot');
+            chatbot.style.display = chatbot.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            const body = document.querySelector('.chatbot-body');
+
+            if (message) {
+                body.innerHTML += `<p><strong>Jūs:</strong> ${message}</p>`;
+                
+                let reply = '';
+                const lower = message.toLowerCase();
+                if (lower.includes('kaip') && lower.includes('pateikti')) {
+                    reply = 'Norėdami pateikti pretenziją, prisijunkite ir eikite į "Pateikti pretenziją".';
+                } else if (lower.includes('garantija')) {
+                    reply = 'Garantinis laikotarpis – 2 metai nuo pirkimo datos.';
+                } else if (lower.includes('meistras')) {
+                    reply = 'Taip, galime atsiųsti meistrą į namus. Pasirinkite šį variantą pildant pretenzijos formą.';
+                } else {
+                    reply = 'Deja, negaliu atsakyti į šį klausimą. Prašome prisijungti ir pateikti pretenziją.';
+                }
+
+                body.innerHTML += `<p><strong>Botas:</strong> ${reply}</p>`;
+                input.value = '';
+                body.scrollTop = body.scrollHeight;
+            }
+        }
+
+        function handleChatInput(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+    </script>
+</body>
+</html>

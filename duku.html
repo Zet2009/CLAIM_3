@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUK – Rubineta</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --white: #ffffff;
+            --font: 'Arial', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font);
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        header {
+            background: var(--white);
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { height: 50px; cursor: pointer; }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+        }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 10px; }
+        .search {
+            margin-bottom: 30px;
+        }
+        .search input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .faq-item {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .faq-item h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--gray);
+            font-size: 12px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.jpg" alt="Rubineta Logo" class="logo" onclick="location.href='index.html'">
+        <nav>
+            <a href="index.html">Pagrindinis</a>
+            <a href="login.html">Prisijungti</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Dažniausiai užduodami klausimai</h1>
+
+        <div class="search">
+            <input type="text" id="search-input" placeholder="Ieškoti klausimų...">
+        </div>
+
+        <div class="faq-item">
+            <h3>Kaip pateikti pretenziją?</h3>
+            <p>Prisijunkite prie savo paskyros ir pildykite daugiapakopę formą. Reikės nurodyti produkto pavadinimą, problemos aprašymą, kontaktus ir įkelti dokumentus.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Kiek ilgai veikia garantija?</h3>
+            <p>Garantinis laikotarpis – 2 metai nuo pirkimo datos. Garantija galioja tik su pirkimo dokumentu.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Ką daryti, jei produktas sugedo?</h3>
+            <p>Pateikite pretenziją su foto, vaizdo įrašu ir pirkimo patvirtinimu. Mūsų kokybės komanda peržiūrės ir nustatys, ar problema garantinė.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Ar galima pateikti pretenziją be paskyros?</h3>
+            <p>Ne, pretenziją galima pateikti tik prisijungus prie registruotos paskyros.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Kaip susisiekti su serviso partneriu?</h3>
+            <p>Meistras bus išsiųstas į namus, jei pasirinksite šį variantą pildant pretenzijos formą.</p>
+        </div>
+    </main>
+
+    <footer>© 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt</footer>
+
+    <script>
+        document.getElementById('search-input').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

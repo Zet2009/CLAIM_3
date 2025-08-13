@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pretenzija pateikta – Rubineta</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --white: #ffffff;
+            --font: 'Arial', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font);
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        header {
+            background: var(--white);
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { height: 50px; cursor: pointer; }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        main {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 60px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        h1 { color: #28a745; margin-bottom: 20px; }
+        .info-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: left;
+            font-size: 16px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 10px 5px;
+            font-weight: 500;
+        }
+        .btn:hover { background: #0056b3; }
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--gray);
+            font-size: 12px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.jpg" alt="Rubineta Logo" class="logo" onclick="location.href='index.html'">
+        <nav>
+            <a href="index.html">Pagrindinis</a>
+            <a href="duku.html">DUK</a>
+            <a href="login.html">Prisijungti</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="success-icon">✅</div>
+        <h1>Pretenzija sėkmingai pateikta!</h1>
+
+        <p>Dėkojame, kad pateikėte pretenziją. Jūsų užklausa priimta ir bus išnagrinėta per 24 valandas.</p>
+
+        <div class="info-box">
+            <strong>Pretenzijos informacija:</strong><br>
+            <span id="claim-info">ID: <span id="claim-id">Kraunama...</span></span><br>
+            <span id="claim-date">Data: <span id="claim-date-value">Kraunama...</span></span>
+        </div>
+
+        <p><strong>Kiti žingsniai:</strong></p>
+        <ul style="text-align: left; margin: 20px 0; padding-left: 20px;">
+            <li>Per 5 minutes gausite patvirtinimo el. laišką</li>
+            <li>Išsami analizė ir atsakymas bus išsiųsti per 24 valandas</li>
+            <li>Būseną galėsite stebėti savo profilyje</li>
+        </ul>
+
+        <a href="index.html" class="btn">Grįžti į pagrindinį</a>
+        <a href="profile.html" class="btn">Atidaryti profilį</a>
+    </main>
+
+    <footer>© 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt</footer>
+
+    <script>
+        // Gauti pretenzijos ID iš URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const claimId = urlParams.get('id');
+        const claims = JSON.parse(localStorage.getItem('claims') || '[]');
+        const claim = claims.find(c => c.id === claimId);
+
+        if (claim) {
+            document.getElementById('claim-id').textContent = claim.id;
+            document.getElementById('claim-date-value').textContent = new Date(claim.date).toLocaleString('lt-LT');
+        } else {
+            document.getElementById('claim-info').innerHTML = '<span style="color: red;">Pretenzija nerasta</span>';
+        }
+    </script>
+</body>
+</html>

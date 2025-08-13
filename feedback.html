@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atsiliepimas apie aptarnavimą – Rubineta</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --white: #ffffff;
+            --success: #28a745;
+            --font: 'Arial', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font);
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        header {
+            background: var(--white);
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { height: 50px; cursor: pointer; }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 16px;
+        }
+        main {
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 30px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 10px; }
+        p { margin-bottom: 20px; text-align: center; color: var(--gray); }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .rating {
+            display: flex;
+            gap: 10px;
+            font-size: 24px;
+        }
+        .rating button {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #dee2e6;
+            background: var(--white);
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        .rating button:hover, .rating button.selected {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .nps-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        .nps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nps-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--gray);
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 80px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--success);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover { background: #218838; }
+        .error { color: #dc3545; font-size: 14px; margin-top: 5px; display: none; }
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--gray);
+            font-size: 12px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.jpg" alt="Rubineta Logo" class="logo" onclick="location.href='index.html'">
+        <nav>
+            <a href="index.html">Pagrindinis</a>
+            <a href="duku.html">DUK</a>
+            <a href="login.html">Prisijungti</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Dėkojame už naudojimą!</h1>
+        <p>Įvertinkite mūsų aptarnavimą po pretenzijos išsprendimo.</p>
+
+        <div id="feedback-form">
+            <div class="form-group">
+                <label for="speed">1. Aptarnavimo greitis (1–5)</label>
+                <div class="rating" id="speed">
+                    <button type="button" onclick="selectRating('speed', 1)">1</button>
+                    <button type="button" onclick="selectRating('speed', 2)">2</button>
+                    <button type="button" onclick="selectRating('speed', 3)">3</button>
+                    <button type="button" onclick="selectRating('speed', 4)">4</button>
+                    <button type="button" onclick="selectRating('speed', 5)">5</button>
+                </div>
+                <div class="nps-labels">
+                    <span>Labai lėtai</span>
+                    <span>Labai greitai</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="quality">2. Remonto kokybė (1–5)</label>
+                <div class="rating" id="quality">
+                    <button type="button" onclick="selectRating('quality', 1)">1</button>
+                    <button type="button" onclick="selectRating('quality', 2)">2</button>
+                    <button type="button" onclick="selectRating('quality', 3)">3</button>
+                    <button type="button" onclick="selectRating('quality', 4)">4</button>
+                    <button type="button" onclick="selectRating('quality', 5)">5</button>
+                </div>
+                <div class="nps-labels">
+                    <span>Blogai</span>
+                    <span>Puikiai</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="politeness">3. Personalo mandagumas (1–5)</label>
+                <div class="rating" id="politeness">
+                    <button type="button" onclick="selectRating('politeness', 1)">1</button>
+                    <button type="button" onclick="selectRating('politeness', 2)">2</button>
+                    <button type="button" onclick="selectRating('politeness', 3)">3</button>
+                    <button type="button" onclick="selectRating('politeness', 4)">4</button>
+                    <button type="button" onclick="selectRating('politeness', 5)">5</button>
+                </div>
+                <div class="nps-labels">
+                    <span>Nemandagiai</span>
+                    <span>Mandagiai</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nps">4. Koks yra tikimybė, kad rekomenduotumėte mūsų paslaugas kitiems? (0–10)</label>
+                <div class="nps-container">
+                    <div class="rating" id="nps" style="justify-content: space-between;">
+                        <button type="button" onclick="selectRating('nps', 0)">0</button>
+                        <button type="button" onclick="selectRating('nps', 1)">1</button>
+                        <button type="button" onclick="selectRating('nps', 2)">2</button>
+                        <button type="button" onclick="selectRating('nps', 3)">3</button>
+                        <button type="button" onclick="selectRating('nps', 4)">4</button>
+                        <button type="button" onclick="selectRating('nps', 5)">5</button>
+                        <button type="button" onclick="selectRating('nps', 6)">6</button>
+                        <button type="button" onclick="selectRating('nps', 7)">7</button>
+                        <button type="button" onclick="selectRating('nps', 8)">8</button>
+                        <button type="button" onclick="selectRating('nps', 9)">9</button>
+                        <button type="button" onclick="selectRating('nps', 10)">10</button>
+                    </div>
+                    <div class="nps-scale">
+                        <span>Neišsiųsiu</span>
+                        <span>Pasisakysiu</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="comments">5. Jūsų komentarai (nebūtina)</label>
+                <textarea id="comments" placeholder="Papildomas atsiliepimas apie aptarnavimą..."></textarea>
+            </div>
+
+            <button type="button" class="btn" onclick="submitFeedback()">Pateikti atsiliepimą</button>
+        </div>
+
+        <div id="thank-you-message" style="text-align: center; display: none;">
+            <h2 style="color: var(--success);">Ačiū už atsiliepimą!</h2>
+            <p>Jūsų nuomonė mums svarbi. Ji padeda tobulėti.</p>
+            <button onclick="location.href='index.html'" class="btn" style="background: var(--primary);">Grįžti į pagrindinį</button>
+        </div>
+    </main>
+
+    <footer>© 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt</footer>
+
+    <script>
+        const ratings = {
+            speed: null,
+            quality: null,
+            politeness: null,
+            nps: null
+        };
+
+        function selectRating(type, value) {
+            ratings[type] = value;
+            document.querySelectorAll(`#${type} button`).forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            document.querySelector(`#${type} button:nth-child(${value})`).classList.add('selected');
+        }
+
+        function submitFeedback() {
+            if (!ratings.speed || !ratings.quality || !ratings.politeness || !ratings.nps) {
+                alert('Prašome įvertinti visus kriterijus.');
+                return;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const claimId = urlParams.get('id') || 'Nežinoma';
+
+            const feedback = {
+                id: 'FB-' + Date.now(),
+                claimId: claimId,
+                date: new Date().toISOString(),
+                ratings: ratings,
+                comments: document.getElementById('comments').value.trim(),
+                userAgent: navigator.userAgent
+            };
+
+            let feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+            feedbacks.push(feedback);
+            localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+
+            document.getElementById('feedback-form').style.display = 'none';
+            document.getElementById('thank-you-message').style.display = 'block';
+
+            setTimeout(() => {
+                alert(`Dėkojame už atsiliepimą!\n\nJūsų vertinimas padeda mums tobulėti.\n\nPretenzijos ID: ${claimId}`);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
