@@ -207,8 +207,8 @@
             event.preventDefault();
 
             const desc = document.getElementById('description').value.trim();
-            if (desc.length < 50) {
-                alert('Aprašymas turi būti ne mažiau kaip 50 simbolių.');
+            if (desc.length < 10) {
+                alert('Aprašymas turi būti ne mažiau kaip 10 simbolių.');
                 return;
             }
 
