@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rubineta – Pretenzijų registravimas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2D2D2D;      /* Pilka – pagrindinė spalva */
-            --primary-hover: #1C1C1C; /* Tamsesnė pilka hover efektui */
-            --secondary: #FFFFFF;     /* Balta – antrinė spalva */
-            --light: #F5F5F5;         /* Šviesi pilka – fonui */
-            --dark: #212121;          /* Tamsi pilka – tekstui */
-            --white: #FFFFFF;         /* Balta */
-            --gray: #757575;          /* Neutrali pilka */
-            --success: #4CAF50;       /* Žalia – sėkmingi veiksmai */
-            --danger: #F44336;        /* Raudona – klaidos */
-            --warning: #FFC107;       /* Geltona – įspėjimai */
-            --info: #2196F3;          /* Mėlyna – informacija */
+            --primary: #2D2D2D;
+            --primary-light: #4A4A4A;
+            --primary-hover: #6B6B6B;
+            --secondary: #FFCC00;
+            --light: #F5F5F5;
+            --dark: #212121;
+            --white: #FFFFFF;
+            --gray: #757575;
             --font: 'Roboto', 'Arial', sans-serif;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -47,6 +45,7 @@
         }
         nav a:hover {
             color: var(--primary);
+            text-decoration: underline;
         }
         main {
             max-width: 900px;
@@ -70,20 +69,42 @@
             margin-bottom: 30px;
             opacity: 0.9;
         }
-        .btn-primary {
+        .btn {
             display: inline-block;
             padding: 14px 30px;
-            background: var(--primary);
-            color: var(--white);
             border-radius: 6px;
+            text-decoration: none;
             font-size: 18px;
             font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--primary-light);
+            color: var(--white);
         }
         .btn-primary:hover {
             background: var(--primary-hover);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--primary);
+            border: none;
+        }
+        .btn-secondary:hover {
+            background: #FFD700;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .btn-block {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 40px 0;
         }
         .section {
             background: var(--white);
@@ -108,27 +129,6 @@
         .faq-item p {
             color: var(--gray);
         }
-        .btn-block {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 40px 0;
-        }
-        .btn-secondary {
-            background: var(--white);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            padding: 14px 30px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        .btn-secondary:hover {
-            background: #f8f9fa;
-            color: var(--primary-hover);
-        }
         footer {
             text-align: center;
             margin-top: 60px;
@@ -136,12 +136,13 @@
             color: var(--gray);
             font-size: 12px;
             border-top: 1px solid #dee2e6;
+            background: var(--secondary);
         }
         @media (max-width: 600px) {
             .btn-block {
                 flex-direction: column;
             }
-            .btn-primary, .btn-secondary {
+            .btn {
                 width: 100%;
                 text-align: center;
             }
@@ -176,8 +177,8 @@
             <h1>Pretenzijų registracija</h1>
             <p>Pateikite pretenziją greitai ir patogiai. Gauskite atsakymą per 24 valandas.</p>
             <div class="btn-block">
-                <a href="login.html" class="btn-primary">Prisijungti ir pateikti</a>
-                <a href="pretention-anonymous.html" class="btn-secondary">Pateikti be registracijos</a>
+                <a href="login.html" class="btn btn-primary">Prisijungti ir pateikti</a>
+                <a href="pretention-anonymous.html" class="btn btn-secondary">Pateikti be registracijos</a>
             </div>
         </section>
 
