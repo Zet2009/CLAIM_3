@@ -6,12 +6,20 @@
     <title>Pateikti pretenziją – Rubineta</title>
     <style>
         :root {
-            --primary: #007bff;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --white: #ffffff;
-            --font: 'Arial', sans-serif;
+            --primary: #E30613;      /* Raudona – pagrindinė spalva */
+            --primary-hover: #B0040F; /* Tamsesnė raudona hover efektui */
+            --secondary: #2D2D2D;     /* Tamsi pilka – antrinė spalva */
+            --light: #F5F5F5;         /* Šviesi pilka – fonui */
+            --dark: #212121;          /* Tamsi pilka – tekstui */
+            --white: #FFFFFF;         /* Balta */
+            --gray: #757575;          /* Neutrali pilka */
+            --success: #4CAF50;       /* Žalia – sėkmingi veiksmai */
+            --danger: #F44336;        /* Raudona – klaidos */
+            --warning: #FFC107;       /* Geltona – įspėjimai */
+            --info: #2196F3;          /* Mėlyna – informacija */
+            --font: 'Roboto', 'Arial', sans-serif;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: var(--font);
@@ -26,6 +34,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         .logo { height: 50px; cursor: pointer; }
         nav a {
@@ -33,16 +44,21 @@
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
+            font-size: 16px;
+        }
+        nav a:hover {
+            color: var(--primary);
+            text-decoration: underline;
         }
         main {
-            max-width: 700px;
+            max-width: 800px;
             margin: 30px auto;
-            padding: 30px;
+            padding: 20px;
             background: var(--white);
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
-        h1 { text-align: center; color: var(--primary); margin-bottom: 20px; }
+        h1 { color: var(--primary); margin-bottom: 10px; text-align: center; }
         .form-group {
             margin-bottom: 20px;
         }
@@ -50,36 +66,107 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
+            color: var(--dark);
         }
-        input, select, textarea {
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--primary);
+            outline: none;
         }
         textarea {
             min-height: 120px;
+            resize: vertical;
+        }
+        .file-upload {
+            border: 2px dashed var(--primary);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #ffebee;
+        }
+        .file-upload p {
+            margin: 0;
+            color: var(--gray);
+        }
+        .file-upload input {
+            display: none;
+        }
+        .file-list {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--dark);
         }
         .btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--primary);
-            color: var(--white);
+            padding: 12px 20px;
             border: none;
             border-radius: 6px;
             font-size: 16px;
-            font-weight: 500;
             cursor: pointer;
-            margin-top: 10px;
+            font-weight: 500;
+            transition: background 0.3s;
         }
-        .btn:hover { background: #0056b3; }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+        .btn-block {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .error {
+            color: var(--danger);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
         footer {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 40px;
             color: var(--gray);
             font-size: 12px;
             border-top: 1px solid #dee2e6;
             padding-top: 20px;
+        }
+        @media (max-width: 600px) {
+            .btn-block {
+                flex-direction: column;
+            }
+            header {
+                padding: 10px 20px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            nav {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            main {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -89,27 +176,30 @@
         <nav>
             <a href="index.html">Pagrindinis</a>
             <a href="duku.html">DUK</a>
+            <a href="login.html">Prisijungti</a>
         </nav>
     </header>
 
     <main>
         <h1>Pateikti pretenziją</h1>
-        <p>Užpildykite formą – atsakysime per 24 valandas.</p>
+        <p style="text-align: center; color: var(--gray);">Užpildykite formą – atsakysime per 24 valandas.</p>
 
         <form id="claim-form" onsubmit="submitClaim(event)">
+            <!-- Tema -->
             <div class="form-group">
                 <label for="topic">Tema *</label>
                 <select id="topic" required>
                     <option value="">Pasirinkite temą</option>
-                    <option value="Bendrieji klausimai">Bendrieji klausimai</option>
-                    <option value="Produkto informacija">Produkto informacija</option>
-                    <option value="Atsarginių dalių informacija">Atsarginių dalių informacija</option>
-                    <option value="Techninė pagalba">Techninė pagalba</option>
-                    <option value="Produkto problema">Produkto problema</option>
-                    <option value="Atsiliepimai">Atsiliepimai</option>
+                    <option value="general">Bendrieji klausimai</option>
+                    <option value="product-info">Produkto informacija</option>
+                    <option value="spare-parts">Atsarginių dalių informacija</option>
+                    <option value="support">Techninė pagalba</option>
+                    <option value="problem">Produkto problema</option>
+                    <option value="feedback">Atsiliepimai</option>
                 </select>
             </div>
 
+            <!-- Veiklos tipas -->
             <div class="form-group">
                 <label for="role">Veiklos tipas *</label>
                 <select id="role" required>
@@ -121,16 +211,20 @@
                 </select>
             </div>
 
+            <!-- Produkto pavadinimas -->
             <div class="form-group">
                 <label for="product">Produkto pavadinimas *</label>
-                <input type="text" id="product" placeholder="Pvz., Viva-33, ECOSENS" required>
+                <input type="text" id="product" placeholder="Įveskite produkto pavadinimą" required>
             </div>
 
+            <!-- Skundo aprašymas -->
             <div class="form-group">
-                <label for="description">Skundo aprašymas (ne mažiau kaip 10 simbolių) *</label>
-                <textarea id="description" placeholder="Apibūdinkite problemą kuo išsamiau..." required></textarea>
+                <label for="description">Skundo aprašymas (ne mažiau 50 simbolių) *</label>
+                <textarea id="description" placeholder="Išsamiai apibūdinkite problemą..."></textarea>
+                <div class="error" id="desc-error">Aprašymas turi būti bent 50 simbolių.</div>
             </div>
 
+            <!-- Kliento reikalavimas -->
             <div class="form-group">
                 <label for="request">Kliento reikalavimas *</label>
                 <select id="request" required>
@@ -141,48 +235,49 @@
                 </select>
             </div>
 
+            <!-- Failų įkėlimas -->
             <div class="form-group">
-                <label for="files">Įkelkite failus (nuotraukas, vaizdo įrašus, pirkimo dokumentą)</label>
-                <input type="file" id="files" multiple accept="image/*,video/*,.pdf,.doc,.docx">
+                <label>Failų įkėlimas (nuotraukos, video, dokumentai – iki 10 MB)</label>
+                <div class="file-upload" onclick="document.getElementById('files').click()">
+                    <p>Spustelėkite, kad įkeltumėte failus, arba įtempkite čia</p>
+                    <input type="file" id="files" multiple onchange="handleFileSelect(event)">
+                </div>
+                <div class="file-list" id="file-list"></div>
             </div>
 
-            <h2 style="margin: 20px 0 15px 0; color: var(--primary);">Jūsų kontaktai</h2>
+            <!-- Kontaktiniai duomenys -->
+            <h2 style="color: var(--primary); margin: 20px 0 15px 0;">Jūsų kontaktai</h2>
 
             <div class="form-group">
-                <label for="contact-name">Vardas *</label>
-                <input type="text" id="contact-name" required>
+                <label for="name">Vardas *</label>
+                <input type="text" id="name" placeholder="Jūsų vardas" required>
             </div>
-
             <div class="form-group">
-                <label for="contact-surname">Pavardė *</label>
-                <input type="text" id="contact-surname" required>
+                <label for="surname">Pavardė *</label>
+                <input type="text" id="surname" placeholder="Jūsų pavardė" required>
             </div>
-
             <div class="form-group">
-                <label for="contact-email">El. paštas *</label>
-                <input type="email" id="contact-email" required>
+                <label for="email">El. paštas *</label>
+                <input type="email" id="email" placeholder="iveskite@el.pastas.lt" required>
             </div>
-
             <div class="form-group">
-                <label for="contact-phone">Telefonas *</label>
-                <input type="tel" id="contact-phone" required>
+                <label for="phone">Telefonas *</label>
+                <input type="tel" id="phone" placeholder="+370 XXX XXXXX" required>
             </div>
-
             <div class="form-group">
-                <label for="contact-street">Adresas (gatvė, namo nr., butas) *</label>
-                <input type="text" id="contact-street" required>
+                <label for="street">Gatvė, namo nr., butas *</label>
+                <input type="text" id="street" placeholder="Gatvė 12, butas 5" required>
             </div>
-
             <div class="form-group">
-                <label for="contact-city">Miestas *</label>
-                <input type="text" id="contact-city" required>
+                <label for="city">Miestas *</label>
+                <input type="text" id="city" placeholder="Vilnius" required>
             </div>
-
             <div class="form-group">
-                <label for="contact-postal">Pašto kodas *</label>
-                <input type="text" id="contact-postal" required>
+                <label for="postal">Pašto kodas *</label>
+                <input type="text" id="postal" placeholder="00000" required>
             </div>
 
+            <!-- Pageidaujamas kontaktavimo būdas -->
             <div class="form-group">
                 <label for="contact-method">Pageidaujamas kontaktavimo būdas *</label>
                 <select id="contact-method" required>
@@ -190,30 +285,59 @@
                     <option value="phone">Telefonu</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label for="preferred-time">Patogus laikas kontaktui</label>
                 <input type="text" id="preferred-time" placeholder="Pvz., Iš ryto, 9–11 val.">
             </div>
 
-            <button type="submit" class="btn">Pateikti pretenziją</button>
+            <!-- Mygtukai -->
+            <div class="btn-block">
+                <button type="button" class="btn btn-primary" onclick="location.href='index.html'">Atgal</button>
+                <button type="submit" class="btn btn-primary">Pateikti pretenziją</button>
+            </div>
         </form>
     </main>
 
-    <footer>© 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt</footer>
+    <footer>
+        © 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt
+    </footer>
 
     <script>
+        function handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+            const list = document.getElementById('file-list');
+            list.innerHTML = '';
+            let totalSize = 0;
+
+            files.forEach(file => {
+                totalSize += file.size;
+                if (totalSize > 10 * 1024 * 1024) {
+                    alert("Bendras failų dydis viršija 10 MB!");
+                    event.target.value = "";
+                    list.innerHTML = '';
+                    return;
+                }
+                const li = document.createElement('div');
+                li.textContent = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                list.appendChild(li);
+            });
+        }
+
         function submitClaim(event) {
             event.preventDefault();
 
             const desc = document.getElementById('description').value.trim();
-            if (desc.length < 10) {
-                alert('Aprašymas turi būti ne mažiau kaip 10 simbolių.');
+            if (desc.length < 50) {
+                document.getElementById('desc-error').style.display = 'block';
                 return;
+            } else {
+                document.getElementById('desc-error').style.display = 'none';
             }
 
             const claimId = 'PRET-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-6);
-
+            alert(`Pretenzija sėkmingai pateikta!\n\nJūsų pretenzijos ID: ${claimId}\n\nAutomatinis atsakymas bus išsiųstas per 5 minutes.`);
+            
+            // Išsaugome localStorage (simuliacija)
             const claim = {
                 id: claimId,
                 date: new Date().toISOString(),
@@ -224,24 +348,23 @@
                 request: document.getElementById('request').value,
                 files: Array.from(document.getElementById('files').files).map(f => f.name),
                 contact: {
-                    name: document.getElementById('contact-name').value,
-                    surname: document.getElementById('contact-surname').value,
-                    email: document.getElementById('contact-email').value,
-                    phone: document.getElementById('contact-phone').value,
-                    street: document.getElementById('contact-street').value,
-                    city: document.getElementById('contact-city').value,
-                    postal: document.getElementById('contact-postal').value
+                    name: document.getElementById('name').value,
+                    surname: document.getElementById('surname').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    street: document.getElementById('street').value,
+                    city: document.getElementById('city').value,
+                    postal: document.getElementById('postal').value
                 },
                 contactMethod: document.getElementById('contact-method').value,
                 preferredTime: document.getElementById('preferred-time').value,
-                status: 'Nauja'
+                status: "Nauja"
             };
 
-            const claims = JSON.parse(localStorage.getItem('claims') || '[]');
+            let claims = JSON.parse(localStorage.getItem('claims') || '[]');
             claims.push(claim);
             localStorage.setItem('claims', JSON.stringify(claims));
 
-            alert(`Dėkojame!\n\nJūsų pretenzija sėkmingai pateikta.\n\nID: ${claimId}\nPer 5 minutes gausite patvirtinimo laišką.\nAtsakymas bus išsiųstas per 24 valandas.`);
             location.href = 'confirmation.html?id=' + claimId;
         }
     </script>
