@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registruotis – Rubineta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #007bff;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --white: #ffffff;
-            --font: 'Arial', sans-serif;
+            --primary: #2D2D2D;
+            --primary-light: #4A4A4A;
+            --primary-hover: #6B6B6B;
+            --secondary: #FFCC00;
+            --light: #F5F5F5;
+            --dark: #212121;
+            --white: #FFFFFF;
+            --gray: #757575;
+            --font: 'Roboto', 'Arial', sans-serif;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -33,6 +38,7 @@
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
+            font-size: 16px;
         }
         main {
             max-width: 500px;
@@ -42,7 +48,12 @@
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
-        h1 { color: var(--primary); margin-bottom: 20px; }
+        h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
         .form-group {
             margin-bottom: 20px;
         }
@@ -50,26 +61,53 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
+            color: var(--dark);
         }
         input, select {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s;
         }
-        button {
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        #document-field {
+            display: none;
+        }
+        .btn {
             width: 100%;
-            padding: 12px;
-            background: var(--primary);
+            padding: 14px;
+            background: var(--primary-light);
             color: var(--white);
             border: none;
             border-radius: 6px;
             font-size: 16px;
+            font-weight: 500;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .links {
             margin-top: 20px;
             text-align: center;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        .links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .links a:hover {
+            text-decoration: underline;
         }
         footer {
             text-align: center;
@@ -78,6 +116,7 @@
             font-size: 12px;
             border-top: 1px solid #dee2e6;
             padding-top: 20px;
+            background: var(--secondary);
         }
     </style>
 </head>
@@ -95,30 +134,33 @@
         <h1>Registruotis</h1>
         <form id="register-form" onsubmit="register(event)">
             <div class="form-group">
-                <label>Vardas</label>
+                <label for="name">Vardas *</label>
                 <input type="text" id="name" required>
             </div>
             <div class="form-group">
-                <label>Pavardė</label>
+                <label for="surname">Pavardė *</label>
                 <input type="text" id="surname" required>
             </div>
             <div class="form-group">
-                <label>El. paštas</label>
+                <label for="email">El. paštas *</label>
                 <input type="email" id="email" required>
             </div>
             <div class="form-group">
-                <label>Slaptažodis</label>
+                <label for="password">Slaptažodis *</label>
                 <input type="password" id="password" required>
             </div>
             <div class="form-group">
-                <label>Veiklos tipas</label>
+                <label for="role">Veiklos tipas *</label>
                 <select id="role" onchange="toggleDocumentField()">
                     <option value="customer">Galutinis vartotojas</option>
                     <option value="installer">Montuotojas</option>
+                    <option value="dealer">Prekybininkas</option>
+                    <option value="designer">Projektuotojas</option>
+                    <option value="other">Kita</option>
                 </select>
             </div>
-            <div class="form-group" id="document-field" style="display: none;">
-                <label>Įkelkite dokumentą (PDF, nuotrauka)</label>
+            <div class="form-group" id="document-field">
+                <label for="document">Įkelkite dokumentą (PDF, nuotrauka)</label>
                 <input type="file" id="document" accept=".pdf,image/*">
             </div>
             <button type="submit" class="btn">Registruotis</button>
@@ -128,7 +170,9 @@
         </div>
     </main>
 
-    <footer>© 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt</footer>
+    <footer>
+        © 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt
+    </footer>
 
     <script>
         function toggleDocumentField() {
@@ -138,18 +182,20 @@
 
         function register(event) {
             event.preventDefault();
-            const name = document.getElementById('name').value;
-            const surname = document.getElementById('surname').value;
-            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value.trim();
+            const surname = document.getElementById('surname').value.trim();
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const role = document.getElementById('role').value;
 
+            // Patikriname, ar toks el. paštas jau egzistuoja
             const users = JSON.parse(localStorage.getItem('users')) || [];
             if (users.some(u => u.email === email)) {
                 alert('Vartotojas su šiuo el. paštu jau egzistuoja.');
                 return;
             }
 
+            // Sukuriame naują vartotoją
             const newUser = {
                 id: Date.now().toString(),
                 name,
@@ -164,16 +210,20 @@
             users.push(newUser);
             localStorage.setItem('users', JSON.stringify(users));
 
-            // Įkelti dokumentą, jei yra
+            // Įkeliame dokumentą, jei vartotojas yra montuotojas
             const fileInput = document.getElementById('document');
             if (fileInput.files.length > 0 && role === 'installer') {
                 const file = fileInput.files[0];
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const docs = JSON.parse(localStorage.getItem('installerDocs') || '[]');
-                    docs.push({ userId: newUser.id, fileName: file.name, fileData: e.target.result });
+                    docs.push({
+                        userId: newUser.id,
+                        fileName: file.name,
+                        fileData: e.target.result
+                    });
                     localStorage.setItem('installerDocs', JSON.stringify(docs));
-                    alert('Registracija sėkminga! Laukite patvirtinimo.');
+                    alert('Registracija sėkminga! Laukite kokybės komandos patvirtinimo.');
                     location.href = 'login.html';
                 };
                 reader.readAsDataURL(file);
