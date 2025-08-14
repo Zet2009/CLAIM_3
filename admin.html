@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administratoriaus zona – Rubineta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #007bff;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --white: #ffffff;
-            --gray: #6c757d;
+            --primary: #2D2D2D;
+            --primary-light: #4A4A4A;
+            --primary-hover: #6B6B6B;
+            --secondary: #FFCC00;
+            --light: #F5F5F5;
+            --dark: #212121;
+            --white: #FFFFFF;
+            --gray: #75757d;
             --success: #28a745;
             --danger: #dc3545;
             --warning: #ffc107;
             --info: #17a2b8;
-            --font: 'Arial', sans-serif;
+            --font: 'Roboto', 'Arial', sans-serif;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -27,8 +31,8 @@
         }
         header {
             background: var(--white);
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -36,33 +40,38 @@
             top: 0;
             z-index: 100;
         }
-        .logo { height: 40px; cursor: pointer; }
+        .logo { height: 50px; cursor: pointer; }
         nav a {
-            margin: 0 10px;
+            margin: 0 15px;
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
-            font-size: 14px;
+            font-size: 16px;
         }
         main {
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 15px;
+            margin: 30px auto;
+            padding: 20px;
         }
-        h1 { color: var(--primary); margin-bottom: 15px; font-size: 24px; }
+        h1 { color: var(--primary); margin-bottom: 20px; text-align: center; }
 
         /* Skirtukai */
         .tabs {
             display: flex;
             margin-bottom: 20px;
             gap: 10px;
+            justify-content: center;
         }
         .tab {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: #e9ecef;
-            border-radius: 6px 6px 0 0;
+            border-radius: 8px 8px 0 0;
             cursor: pointer;
             font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .tab:hover {
+            background: #dee2e6;
         }
         .tab.active {
             background: var(--primary);
@@ -75,59 +84,105 @@
             display: block;
         }
 
+        /* Statistika */
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 200px;
+        }
+        .stat-card h3 {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        .stat-card p {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
         /* Filtrai */
         .filters {
             background: var(--white);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             margin-bottom: 20px;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
+            align-items: center;
         }
         .filters input, .filters select {
-            padding: 8px;
+            padding: 12px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 13px;
+            border-radius: 6px;
+            font-size: 16px;
+            flex: 1;
+            min-width: 180px;
         }
         .btn {
-            padding: 8px 12px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
-        .btn-primary { background: var(--primary); color: var(--white); }
-        .btn-export { background: var(--success); color: var(--white); }
+        .btn-primary {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+        .btn-export {
+            background: var(--secondary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .btn-export:hover {
+            background: #FFD700;
+        }
 
         /* Lentelė */
         table {
             width: 100%;
             border-collapse: collapse;
             background: var(--white);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            table-layout: fixed;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-top: 20px;
         }
         th, td {
-            padding: 10px;
+            padding: 15px;
             text-align: left;
             border-bottom: 1px solid #dee2e6;
-            font-size: 13px;
-            word-wrap: break-word;
+            font-size: 14px;
         }
         th {
             background: var(--primary);
             color: var(--white);
-            font-size: 14px;
+            font-weight: 500;
         }
-        tr:hover { background: #f8f9fa; }
+        tr:hover {
+            background: #f8f9fa;
+        }
         .status {
-            padding: 4px 8px;
-            border-radius: 15px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
             display: inline-block;
@@ -139,15 +194,6 @@
         .status-resolved { background: #d1ecf1; color: #0c5460; }
         .status-rejected { background: #f8d7da; color: #721c24; }
 
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: var(--gray);
-            font-size: 12px;
-            border-top: 1px solid #dee2e6;
-            padding-top: 15px;
-        }
-
         /* Modaliniai langai */
         .modal {
             display: none;
@@ -157,17 +203,17 @@
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
             background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
-            background-color: var(--white);
-            margin: 5% auto;
-            padding: 20px;
+            background: var(--white);
+            padding: 30px;
             border-radius: 10px;
             width: 90%;
-            max-width: 600px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            max-width: 700px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
         }
         .close {
             color: var(--gray);
@@ -176,31 +222,51 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .close:hover { color: var(--dark); }
+        .close:hover {
+            color: var(--dark);
+        }
         .form-group {
             margin-bottom: 15px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 500;
+            color: var(--dark);
         }
         .form-group textarea {
             width: 100%;
             height: 100px;
-            padding: 8px;
+            padding: 12px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 14px;
         }
         .comment-box button {
             margin-top: 10px;
-            padding: 8px 16px;
-            background: var(--primary);
+            padding: 10px 16px;
+            background: var(--primary-light);
             color: var(--white);
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--gray);
+            font-size: 12px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+            background: var(--secondary);
+        }
+        @media (max-width: 600px) {
+            .filters, .stats {
+                flex-direction: column;
+            }
+            .tabs {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
@@ -229,7 +295,7 @@
             <!-- Statistika -->
             <div class="stats">
                 <div class="stat-card">
-                    <h3>Pretenzijų skaičius</h3>
+                    <h3>Pretenzijų sk.</h3>
                     <p id="total-claims">0</p>
                 </div>
                 <div class="stat-card">
@@ -464,8 +530,8 @@
 
             return `
                 <div class="dropdown">
-                    <button class="dropdown-btn">Veiksmai</button>
-                    <div class="dropdown-content">
+                    <button class="btn btn-primary" style="padding: 6px 12px; font-size: 14px;">Veiksmai</button>
+                    <div class="dropdown-content" style="position: absolute; background: white; border: 1px solid #ccc; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 8px; z-index: 1000; min-width: 160px;">
                         ${options}
                     </div>
                 </div>
@@ -751,7 +817,7 @@
         // -----------------------------
         function loadPendingInstallers(installersToShow = null) {
             const users = installersToShow || JSON.parse(localStorage.getItem('users') || '[]');
-            const pending = users.filter(u => u.role === 'installer');
+            const pending = users.filter(u => u.role === 'installer' && u.status === 'pending');
             const tbody = document.getElementById('installers-body');
             tbody.innerHTML = '';
 
@@ -764,7 +830,7 @@
                 const docs = JSON.parse(localStorage.getItem('installerDocs') || '[]');
                 const doc = docs.find(d => d.userId == user.id);
                 const docLink = doc 
-                    ? `<a href="${doc.fileData}" target="_blank" class="btn btn-success" style="padding:5px 10px;font-size:12px;">Atidaryti</a>` 
+                    ? `<a href="${doc.fileData}" target="_blank" class="btn btn-primary" style="padding:5px 10px;font-size:12px;">Atidaryti</a>` 
                     : 'Nėra';
 
                 const tr = document.createElement('tr');
@@ -773,7 +839,7 @@
                     <td>${user.email}</td>
                     <td>${docLink}</td>
                     <td>
-                        <button class="btn btn-success" onclick="approveInstaller('${user.id}')">Patvirtinti</button>
+                        <button class="btn btn-primary" onclick="approveInstaller('${user.id}')">Patvirtinti</button>
                         <button class="btn btn-danger" onclick="openRejectionModal('${user.id}')">Atmesti</button>
                     </td>
                 `;
@@ -786,7 +852,7 @@
             const emailFilter = document.getElementById('filter-installer-email').value.toLowerCase();
 
             const users = JSON.parse(localStorage.getItem('users') || '[]');
-            const pending = users.filter(u => u.role === 'installer');
+            const pending = users.filter(u => u.role === 'installer' && u.status === 'pending');
             const filtered = pending.filter(u => {
                 return (nameFilter === '' || `${u.name} ${u.surname}`.toLowerCase().includes(nameFilter)) &&
                        (emailFilter === '' || u.email.toLowerCase().includes(emailFilter));
@@ -810,7 +876,7 @@
         let rejectUserId = null;
         function openRejectionModal(userId) {
             rejectUserId = userId;
-            document.getElementById('rejectionModal').style.display = 'block';
+            document.getElementById('rejectionModal').style.display = 'flex';
         }
         function closeRejectionModal() {
             document.getElementById('rejectionModal').style.display = 'none';
