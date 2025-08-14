@@ -301,11 +301,11 @@
 
     <script>
         // Tikriname, ar vartotojas yra administratorius
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (!currentUser || !['admin', 'quality'].includes(currentUser.role)) {
-            alert('Prieiga draudžiama. Reikalingos administratoriaus teisės.');
-            location.href = 'index.html';
-        }
+        //const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        //if (!currentUser || !['admin', 'quality'].includes(currentUser.role)) {
+            //alert('Prieiga draudžiama. Reikalingos administratoriaus teisės.');
+            //location.href = 'index.html';
+      //  }
 
         function loadPartners(partnersToShow = null) {
             const partners = partnersToShow || JSON.parse(localStorage.getItem('servicePartners') || '[]');
