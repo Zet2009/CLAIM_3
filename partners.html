@@ -4,30 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serviso partneriai – Rubineta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #007bff;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --white: #ffffff;
-            --gray: #6c757d;
-            --success: #28a745;
-            --danger: #dc3545;
-            --warning: #ffc107;
-            --font: 'Arial', sans-serif;
+            --primary: #2D2D2D;
+            --primary-light: #4A4A4A;
+            --primary-hover: #6B6B6B;
+            --secondary: #FFCC00;
+            --light: #F5F5F5;
+            --dark: #212121;
+            --white: #FFFFFF;
+            --gray: #757575;
+            --font: 'Roboto', 'Arial', sans-serif;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: var(--font);
             background: var(--light);
             color: var(--dark);
-            line-height: 1.4;
-            font-size: 14px;
+            line-height: 1.6;
         }
         header {
             background: var(--white);
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -35,72 +35,104 @@
             top: 0;
             z-index: 100;
         }
-        .logo { height: 40px; cursor: pointer; }
+        .logo { height: 50px; cursor: pointer; }
         nav a {
-            margin: 0 10px;
+            margin: 0 15px;
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
-            font-size: 14px;
+            font-size: 16px;
         }
         main {
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 15px;
+            margin: 30px auto;
+            padding: 20px;
         }
-        h1 { color: var(--primary); margin-bottom: 15px; font-size: 24px; }
-
+        h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
         .filters {
             background: var(--white);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             margin-bottom: 20px;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
+            align-items: center;
         }
         .filters input, .filters select {
-            padding: 8px;
+            padding: 12px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 13px;
+            border-radius: 6px;
+            font-size: 16px;
+            flex: 1;
+            min-width: 200px;
         }
         .btn {
-            padding: 8px 12px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-size: 16px;
             cursor: pointer;
-            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
-        .btn-primary { background: var(--primary); color: var(--white); }
-        .btn-success { background: var(--success); color: var(--white); }
-        .btn-danger { background: var(--danger); color: var(--white); }
-        .btn-warning { background: var(--warning); color: var(--dark); }
-
+        .btn-primary {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+        .btn-success:hover {
+            background: var(--primary-hover);
+        }
+        .btn-warning {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        .btn-warning:hover {
+            background: #FFD700;
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background: #F44336;
+            color: var(--white);
+        }
+        .btn-danger:hover {
+            background: #DA190B;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
             background: var(--white);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            table-layout: fixed;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-top: 20px;
         }
         th, td {
-            padding: 10px;
+            padding: 15px;
             text-align: left;
             border-bottom: 1px solid #dee2e6;
-            font-size: 13px;
-            word-wrap: break-word;
         }
         th {
             background: var(--primary);
             color: var(--white);
-            font-size: 14px;
+            font-weight: 500;
         }
-        tr:hover { background: #f8f9fa; }
-
+        tr:hover {
+            background: #f8f9fa;
+        }
         .modal {
             display: none;
             position: fixed;
@@ -109,17 +141,22 @@
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
             background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
         }
         .modal-content {
-            background-color: var(--white);
-            margin: 5% auto;
-            padding: 20px;
+            background: var(--white);
+            padding: 30px;
             border-radius: 10px;
             width: 90%;
             max-width: 600px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .close {
             color: var(--gray);
@@ -128,34 +165,51 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .close:hover { color: var(--dark); }
+        .close:hover {
+            color: var(--dark);
+        }
         .form-group {
             margin-bottom: 15px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 500;
+            color: var(--dark);
         }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 8px;
+            padding: 12px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
+            border-radius: 6px;
+            font-size: 16px;
         }
         .form-actions {
             margin-top: 20px;
             text-align: right;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
         }
-
         footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 60px;
+            padding: 20px;
             color: var(--gray);
             font-size: 12px;
             border-top: 1px solid #dee2e6;
-            padding-top: 15px;
+            background: var(--secondary);
+        }
+        @media (max-width: 600px) {
+            .filters {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+            .form-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -182,19 +236,20 @@
         <table id="partners-table">
             <thead>
                 <tr>
-                    <th style="width: 25%;">Pavadinimas</th>
-                    <th style="width: 20%;">Kontaktinis asmuo</th>
-                    <th style="width: 20%;">Kontaktai</th>
-                    <th style="width: 20%;">Veiklos zona</th>
-                    <th style="width: 15%;">Veiksmai</th>
+                    <th>Pavadinimas</th>
+                    <th>Kontaktinis asmuo</th>
+                    <th>Kontaktai</th>
+                    <th>Veiklos zona</th>
+                    <th>Veiksmai</th>
                 </tr>
             </thead>
             <tbody id="partners-body">
-                <tr><td colspan="5" style="text-align: center;">Kraunama...</td></tr>
+                <tr><td colspan="5" style="text-align: center; padding: 40px;">Kraunama...</td></tr>
             </tbody>
         </table>
     </main>
 
+    <!-- Modal: Pridėti/redaguoti partnerį -->
     <div id="partnerModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -229,6 +284,7 @@
         </div>
     </div>
 
+    <!-- Modal: Ištrinti partnerį -->
     <div id="deleteModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeDeleteModal()">&times;</span>
@@ -244,6 +300,7 @@
     <footer>© 2025 Rubineta. Visos teisės saugomos. | info@rubineta.lt</footer>
 
     <script>
+        // Tikriname, ar vartotojas yra administratorius
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (!currentUser || !['admin', 'quality'].includes(currentUser.role)) {
             alert('Prieiga draudžiama. Reikalingos administratoriaus teisės.');
@@ -256,7 +313,7 @@
             tbody.innerHTML = '';
 
             if (partners.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Nėra įregistruotų serviso partnerių.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px;">Nėra įregistruotų serviso partnerių.</td></tr>';
                 return;
             }
 
@@ -283,7 +340,7 @@
             document.getElementById('modal-title').textContent = 'Pridėti partnerį';
             document.getElementById('partner-form').reset();
             document.getElementById('edit-id').value = '';
-            document.getElementById('partnerModal').style.display = 'block';
+            document.getElementById('partnerModal').style.display = 'flex';
         }
 
         function openEditModal(id) {
@@ -297,14 +354,14 @@
                 document.getElementById('phone').value = partner.phone;
                 document.getElementById('email').value = partner.email;
                 document.getElementById('cities').value = partner.cities;
-                document.getElementById('partnerModal').style.display = 'block';
+                document.getElementById('partnerModal').style.display = 'flex';
             }
         }
 
         let deleteId = null;
         function openDeleteModal(id) {
             deleteId = id;
-            document.getElementById('deleteModal').style.display = 'block';
+            document.getElementById('deleteModal').style.display = 'flex';
         }
         function closeDeleteModal() {
             document.getElementById('deleteModal').style.display = 'none';
